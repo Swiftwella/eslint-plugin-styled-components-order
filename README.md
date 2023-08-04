@@ -39,7 +39,9 @@ Then configure the rules you want to use under the rules section.
         "better-styled-components"
     ],
     "rules": {
-        "better-styled-components/sort-declarations-alphabetically": 2
+        // Use only one of the following rules
+        "better-styled-components/sort-declarations-alphabetically": "error",
+        "better-styled-components/sort-declarations-concentrically": "error"
     }
 }
 ```
@@ -47,6 +49,7 @@ Then configure the rules you want to use under the rules section.
 ## Supported Rules
 
 * 🔤`sort-declarations-alphabetically`: auto fixable rule that enforces alphabetically sorted declarations.
+* 🔤`sort-declarations-concentrically`: auto fixable rule that enforces concentrically sorted declarations.
 
 
 ## License
