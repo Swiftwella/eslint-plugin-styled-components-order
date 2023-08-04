@@ -1,6 +1,6 @@
 # eslint-plugin-better-styled-components 💅
 
-Auto fixable ESlint's rules for styled components.
+Auto fixable ESlint's rules for sorting styled components, either alphabetically or concentrically.
 
 ## Installation
 
