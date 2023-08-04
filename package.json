@@ -1,17 +1,14 @@
 {
-  "name": "eslint-plugin-better-styled-components",
-  "version": "1.1.2",
-  "description": "ESlint's rules for styled components.",
+  "name": "eslint-plugin-styled-components-order",
+  "version": "1.0.0",
+  "description": "ESlint's rules for sorting styled components, either alphabetically or concentrically.",
   "keywords": [
     "eslint",
     "eslintplugin",
     "eslint-plugin"
   ],
-  "author": "siffogh",
+  "author": "swiftwella",
   "main": "lib/index.js",
-  "scripts": {
-    "test": "mocha tests/lib/rules/sort-declarations-alphabetically.js"
-  },
   "dependencies": {
     "import-modules": "^2.0.0",
     "postcss": "^7.0.2"
@@ -27,6 +24,6 @@
     "node": ">=0.10.0"
   },
   "license": "Apache License Version 2.0.",
-  "repository": "https://github.com/siffogh/eslint-plugin-better-styled-components",
+  "repository": "https://github.com/Swiftwella/eslint-plugin-styled-components-order",
   "private": false
 }
