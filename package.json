@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-styled-components-order",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ESlint's rules for sorting styled components, either alphabetically or concentrically.",
   "keywords": [
     "eslint",
