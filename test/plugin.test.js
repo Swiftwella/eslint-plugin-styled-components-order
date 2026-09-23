@@ -185,6 +185,27 @@ test("concentric rule puts known properties first and sorts unknown ones", () =>
   assert.equal(lint(code, "sort-declarations-concentrically").output, expected);
 });
 
+test("concentric rule puts custom properties before standard declarations", () => {
+  const code = [
+    "const Box = styled.div`",
+    "  display: block;",
+    "  --top-distance: 2rem;",
+    "  zebra: 1;",
+    "  --header-height: 4rem;",
+    "`;",
+  ].join("\n");
+  const expected = [
+    "const Box = styled.div`",
+    "  --header-height: 4rem;",
+    "  --top-distance: 2rem;",
+    "  display: block;",
+    "  zebra: 1;",
+    "`;",
+  ].join("\n");
+
+  assert.equal(lint(code, "sort-declarations-concentrically").output, expected);
+});
+
 test("concentric rule recognizes modern and vendor-prefixed properties", () => {
   const code = [
     "const Box = styled.div`",
