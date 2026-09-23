@@ -1,28 +1,59 @@
 {
   "name": "eslint-plugin-styled-components-order",
   "version": "1.0.2",
-  "description": "ESlint's rules for sorting styled components, either alphabetically or concentrically.",
+  "description": "ESLint rules for consistently ordering CSS declarations in styled-components templates.",
   "keywords": [
     "eslint",
     "eslintplugin",
-    "eslint-plugin"
+    "eslint-plugin",
+    "styled-components",
+    "css",
+    "sorting"
   ],
   "author": "swiftwella",
   "main": "lib/index.js",
+  "exports": "./lib/index.js",
+  "files": [
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "commitlint": "commitlint",
+    "lint": "eslint .",
+    "test": "node --test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run lint && npm test && npm run format:check"
+  },
   "dependencies": {
-    "import-modules": "^2.0.0",
-    "postcss": "^7.0.2"
+    "postcss": "^8.5.28"
   },
   "devDependencies": {
-    "eslint": "^7.2.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.0.5"
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "eslint": "^10.11.0",
+    "prettier": "^3.9.9"
+  },
+  "peerDependencies": {
+    "eslint": "^8.57.0 || ^9.0.0 || ^10.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=20.19.0"
   },
-  "license": "Apache License Version 2.0.",
-  "repository": "https://github.com/Swiftwella/eslint-plugin-styled-components-order",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swiftwella/eslint-plugin-styled-components-order.git"
+  },
+  "homepage": "https://github.com/Swiftwella/eslint-plugin-styled-components-order#readme",
+  "bugs": {
+    "url": "https://github.com/Swiftwella/eslint-plugin-styled-components-order/issues"
+  },
   "private": false
 }

@@ -1,59 +1,158 @@
-# eslint-plugin-styled-components-order 💅
+# eslint-plugin-styled-components-order
 
-Auto fixable ESlint's rules for sorting styled components, either alphabetically or concentrically.
+[![npm version](https://img.shields.io/npm/v/eslint-plugin-styled-components-order.svg)](https://www.npmjs.com/package/eslint-plugin-styled-components-order)
+[![CI](https://github.com/Swiftwella/eslint-plugin-styled-components-order/actions/workflows/ci.yml/badge.svg)](https://github.com/Swiftwella/eslint-plugin-styled-components-order/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/eslint-plugin-styled-components-order.svg)](./LICENSE)
+
+Automatically enforce a consistent order for CSS declarations inside
+styled-components tagged templates. Both rules are autofixable and support
+nested selectors, at-rules, interpolated values, the `css` helper, `.attrs()`,
+intrinsic elements, and custom components.
+
+## Requirements
+
+- Node.js 20.19 or newer
+- ESLint 8.57 or newer
 
 ## Installation
 
-You'll first need to install [ESLint](http://eslint.org):
-
-```
-$ npm i eslint --save-dev
+```sh
+npm install --save-dev eslint eslint-plugin-styled-components-order
 ```
 
-Next, install `eslint-plugin-styled-components-order`:
+## Configuration
 
+Choose one ordering strategy. The recommended preset uses alphabetical order.
+
+### Flat config
+
+```js
+// eslint.config.js
+const styledComponentsOrder = require("eslint-plugin-styled-components-order");
+
+module.exports = [
+  styledComponentsOrder.configs["flat/recommended"],
+  // Or: styledComponentsOrder.configs["flat/concentric"],
+];
 ```
-$ npm install eslint-plugin-styled-components-order --save-dev
+
+To configure a rule directly:
+
+```js
+const styledComponentsOrder = require("eslint-plugin-styled-components-order");
+
+module.exports = [
+  {
+    plugins: {
+      "styled-components-order": styledComponentsOrder,
+    },
+    rules: {
+      "styled-components-order/sort-declarations-alphabetically": "error",
+    },
+  },
+];
 ```
 
-**Note:** If you installed ESLint globally (using the `-g` flag) then you must also install `eslint-plugin-styled-components-order` globally.
-
-## Usage
-
-Add `styled-components-order` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
+### Legacy eslintrc
 
 ```json
 {
-    "plugins": [
-        "styled-components-order"
-    ]
+  "extends": ["plugin:styled-components-order/recommended"]
 }
 ```
 
+For concentric ordering, use
+`"plugin:styled-components-order/concentric"` instead.
 
-Then configure the rules you want to use under the rules section.
+## Rules
 
-```json
-{
-    "plugins": [
-        "styled-components-order"
-    ],
-    "rules": {
-        // Use only one of the following rules
-        "styled-components-order/sort-declarations-alphabetically": "error",
-        "styled-components-order/sort-declarations-concentrically": "error"
-    }
-}
+### `sort-declarations-alphabetically`
+
+Sorts declarations by property name.
+
+```js
+const Button = styled.button`
+  color: white;
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+`;
 ```
 
-## Supported Rules
+### `sort-declarations-concentrically`
 
-* 🔤`sort-declarations-alphabetically`: auto fixable rule that enforces alphabetically sorted declarations.
-* 🔤`sort-declarations-concentrically`: auto fixable rule that enforces concentrically sorted declarations.
+Sorts declarations from outside-in: layout and positioning first, followed by
+box-model, visual, and typography properties. Properties not present in the
+built-in order are placed last and sorted alphabetically.
 
+```js
+const Card = styled.article`
+  display: grid;
+  position: relative;
+  margin: 1rem;
+  border: 1px solid;
+  background: white;
+  color: black;
+`;
+```
+
+Run ESLint with `--fix` to reorder declarations automatically:
+
+```sh
+npx eslint . --fix
+```
+
+## Supported syntax
+
+```js
+styled.div`...`;
+styled(Component)`...`;
+styled.div.attrs({ role: "button" })`...`;
+css`...`;
+```
+
+Declarations inside nested selectors and block at-rules are sorted
+independently. JavaScript interpolations are preserved exactly as written.
+Templates containing invalid CSS are left untouched.
+
+## Development
+
+```sh
+npm install
+npm run check
+```
+
+The `check` command runs ESLint, the Node.js test suite, and Prettier's format
+check. Use `npm run format` to apply formatting.
+
+Commits must follow the [Conventional Commits](https://www.conventionalcommits.org/)
+format. Validate a commit message with:
+
+```sh
+echo "feat: add a feature" | npm run commitlint
+```
+
+## Releasing
+
+Releases are automated with GitHub Actions and Release Please:
+
+1. Merge conventional commits into `master`.
+2. Release Please creates or updates a release pull request with the next
+   version and changelog.
+3. Merge the release pull request when it is ready.
+4. GitHub Actions creates the tag and GitHub Release, runs all checks, and
+   publishes the package to npm with provenance.
+
+Commit types determine the next version:
+
+- `fix:` creates a patch release.
+- `feat:` creates a minor release.
+- `feat!:`, `fix!:`, or a `BREAKING CHANGE:` footer creates a major release.
+
+Publishing uses npm Trusted Publishing and does not require an npm token in
+GitHub. The npm package must authorize the `Swiftwella` GitHub user, the
+`eslint-plugin-styled-components-order` repository, and the `release.yml`
+workflow before the first automated release.
 
 ## License
-Unless otherwise specified this project is licensed under [Apache License Version 2.0](./LICENSE).
 
-
-
+[Apache-2.0](./LICENSE)
