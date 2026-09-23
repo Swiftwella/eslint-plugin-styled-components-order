@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/Swiftwella/eslint-plugin-styled-components-order/compare/eslint-plugin-styled-components-order-v2.0.0...eslint-plugin-styled-components-order-v2.0.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* remove releasing instructions from README ([7514372](https://github.com/Swiftwella/eslint-plugin-styled-components-order/commit/751437210027623b43eef0e0f83935efc20c96b1))
+
 ## [2.0.0](https://github.com/Swiftwella/eslint-plugin-styled-components-order/compare/eslint-plugin-styled-components-order-v1.0.2...eslint-plugin-styled-components-order-v2.0.0) (2026-09-23)
 
 
