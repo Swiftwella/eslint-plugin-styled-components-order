@@ -80,16 +80,18 @@ const Button = styled.button`
 
 ### `sort-declarations-concentrically`
 
-Sorts declarations from outside-in: layout and positioning first, followed by
-box-model, visual, and typography properties. CSS custom properties are placed
-first and sorted alphabetically. Other properties not present in the built-in
-order are placed last and sorted alphabetically.
+Sorts declarations by structural impact, then from outside-in within the box
+model. The order is: custom properties; generated content; positioning and
+layout; display and visibility; clipping; animation; box model; backgrounds;
+typography; interaction; and nested selectors or at-rules. Related property
+families stay together, physical longhands use top-right-bottom-left order, and
+unknown properties are placed last alphabetically.
 
 ```js
 const Card = styled.article`
   --card-background: white;
-  display: grid;
   position: relative;
+  display: grid;
   margin: 1rem;
   border: 1px solid;
   background: var(--card-background);

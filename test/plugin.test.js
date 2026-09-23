@@ -4,6 +4,7 @@ const assert = require("node:assert/strict");
 const test = require("node:test");
 const { Linter } = require("eslint");
 const plugin = require("../lib");
+const groupedOrder = require("../lib/utils/grouped-order");
 
 function lint(code, rule) {
   const linter = new Linter();
@@ -218,9 +219,99 @@ test("concentric rule recognizes modern and vendor-prefixed properties", () => {
   const expected = [
     "const Box = styled.div`",
     "  inset: 0;",
-    "  -webkit-user-select: none;",
     "  aspect-ratio: 1;",
     "  color: red;",
+    "  -webkit-user-select: none;",
+    "`;",
+  ].join("\n");
+
+  assert.equal(lint(code, "sort-declarations-concentrically").output, expected);
+});
+
+test("concentric order follows structural groups and box-model edges", () => {
+  const representatives = [
+    "content",
+    "position",
+    "float",
+    "display",
+    "visibility",
+    "overflow",
+    "animation",
+    "margin",
+    "border",
+    "padding",
+    "width",
+    "background",
+    "font-size",
+    "line-height",
+    "text-align",
+    "word-spacing",
+    "letter-spacing",
+    "cursor",
+  ];
+  const clockwiseMargins = [
+    "margin-top",
+    "margin-right",
+    "margin-bottom",
+    "margin-left",
+  ];
+
+  assert.equal(new Set(groupedOrder).size, groupedOrder.length);
+  for (const properties of [representatives, clockwiseMargins]) {
+    properties.reduce((previousIndex, property) => {
+      const currentIndex = groupedOrder.indexOf(property);
+      assert.ok(currentIndex > previousIndex, `${property} is out of order`);
+      return currentIndex;
+    }, -1);
+  }
+});
+
+test("concentric rule places nested blocks after declarations", () => {
+  const code = [
+    "const Button = styled.button`",
+    "  &:hover {",
+    "    color: blue;",
+    "    display: block;",
+    "  }",
+    "  color: red;",
+    "  --button-color: red;",
+    "`;",
+  ].join("\n");
+  const expected = [
+    "const Button = styled.button`",
+    "  --button-color: red;",
+    "  color: red;",
+    "  &:hover {",
+    "    display: block;",
+    "    color: blue;",
+    "  }",
+    "`;",
+  ].join("\n");
+
+  assert.equal(lint(code, "sort-declarations-concentrically").output, expected);
+});
+
+test("concentric rule preserves comments and nested-block order", () => {
+  const code = [
+    "const Button = styled.button`",
+    "  /* Hover state */",
+    "  &:hover { color: blue; }",
+    "  /* Base display */",
+    "  display: block;",
+    "  /* Responsive state */",
+    "  @media (width > 40rem) { color: green; }",
+    "  color: red;",
+    "`;",
+  ].join("\n");
+  const expected = [
+    "const Button = styled.button`",
+    "  /* Base display */",
+    "  display: block;",
+    "  color: red;",
+    "  /* Hover state */",
+    "  &:hover { color: blue; }",
+    "  /* Responsive state */",
+    "  @media (width > 40rem) { color: green; }",
     "`;",
   ].join("\n");
 
