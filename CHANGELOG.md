@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.2](https://github.com/Swiftwella/eslint-plugin-styled-components-order/compare/eslint-plugin-styled-components-order-v2.0.1...eslint-plugin-styled-components-order-v2.0.2) (2026-09-23)
+
+
+### Bug Fixes
+
+* keep custom properties before declarations ([35c7d74](https://github.com/Swiftwella/eslint-plugin-styled-components-order/commit/35c7d74e13153c712cb9338eff3ba2eb900b44fc))
+* refine concentric declaration order ([995dc44](https://github.com/Swiftwella/eslint-plugin-styled-components-order/commit/995dc44b8f133a0f9eee82b98b4d63e8e0fcb94f))
+
 ## [2.0.1](https://github.com/Swiftwella/eslint-plugin-styled-components-order/compare/eslint-plugin-styled-components-order-v2.0.0...eslint-plugin-styled-components-order-v2.0.1) (2026-09-23)
 
 
