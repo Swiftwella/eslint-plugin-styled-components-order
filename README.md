@@ -131,28 +131,6 @@ format. Validate a commit message with:
 echo "feat: add a feature" | npm run commitlint
 ```
 
-## Releasing
-
-Releases are automated with GitHub Actions and Release Please:
-
-1. Merge conventional commits into `master`.
-2. Release Please creates or updates a release pull request with the next
-   version and changelog.
-3. Merge the release pull request when it is ready.
-4. GitHub Actions creates the tag and GitHub Release, runs all checks, and
-   publishes the package to npm with provenance.
-
-Commit types determine the next version:
-
-- `fix:` creates a patch release.
-- `feat:` creates a minor release.
-- `feat!:`, `fix!:`, or a `BREAKING CHANGE:` footer creates a major release.
-
-Publishing uses npm Trusted Publishing and does not require an npm token in
-GitHub. The npm package must authorize the `Swiftwella` GitHub user, the
-`eslint-plugin-styled-components-order` repository, and the `release.yml`
-workflow before the first automated release.
-
 ## License
 
 [Apache-2.0](./LICENSE)
